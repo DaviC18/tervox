@@ -1,0 +1,55 @@
+{
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.9",
+    "@types/node": "22.13.0",
+    "concurrently": "9.1.0",
+    "ultracite": "^7.10.6"
+  },
+  "name": "tervox",
+  "scripts": {
+    "dev": "concurrently -k -n web,api -c blue,magenta \"npm run dev:web\" \"npm run dev:api\"",
+    "dev:web": "npm --workspace @tervox/web run dev",
+    "dev:api": "npm --workspace @tervox/api run dev",
+    "build": "npm run build:web && npm run build:api",
+    "build:web": "npm --workspace @tervox/web run build",
+    "build:api": "npm --workspace @tervox/api run build",
+    "start": "npm run start:web",
+    "start:web": "npm --workspace @tervox/web run start",
+    "start:api": "npm --workspace @tervox/api run start",
+    "typecheck": "npm run typecheck:web && npm run typecheck:api && npm run typecheck:contracts",
+    "typecheck:web": "npm --workspace @tervox/web run typecheck",
+    "typecheck:api": "npm --workspace @tervox/api run typecheck",
+    "typecheck:contracts": "npm --workspace @tervox/contracts run typecheck",
+    "test": "npm run test:all",
+    "test:web": "npm --workspace @tervox/web run test",
+    "test:api": "npm --workspace @tervox/api run test",
+    "test:contracts": "npm --workspace @tervox/contracts run test",
+    "test:all": "npm run test:web && npm run test:contracts && npm run test:api",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "db:generate": "npm --workspace @tervox/api run db:generate",
+    "db:migrate": "npm --workspace @tervox/api run db:migrate",
+    "db:seed": "npm --workspace @tervox/api run db:seed",
+    "db:up": "npm --workspace @tervox/api run db:up",
+    "db:down": "npm --workspace @tervox/api run db:down",
+    "db:reset": "npm --workspace @tervox/api run db:reset",
+    "db:studio": "npm --workspace @tervox/api run db:studio",
+    "check": "ultracite check",
+    "fix": "ultracite fix"
+  },
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "private": true,
+  "description": "Tervox monorepo",
+  "engines": {
+    "node": ">=20.18.1"
+  },
+  "overrides": {
+    "postcss": "^8.5.10",
+    "esbuild": "^0.28.1"
+  }
+}
