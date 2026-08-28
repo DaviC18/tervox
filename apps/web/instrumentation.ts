@@ -12,7 +12,9 @@
 //     seed can never stop the server from booting (a failure in the `start` chain
 //     would). Seed failures degrade gracefully.
 export async function register(): Promise<void> {
-  if (process.env.NEXT_RUNTIME !== 'nodejs') return;
+  if (process.env.NEXT_RUNTIME !== 'nodejs') {
+    return;
+  }
 
   try {
     const { seed } = await import('@/lib/seed');

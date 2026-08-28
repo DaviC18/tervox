@@ -1,4 +1,8 @@
 // @polsia:user-owned — global navigation rendered from src/lib/nav.ts.
+/** biome-ignore-all lint/performance/noJsxPropsBind: <> */
+/** biome-ignore-all assist/source/useSortedKeys: <> */
+/** biome-ignore-all assist/source/useSortedAttributes: <> */
+/** biome-ignore-all lint/performance/noNamespaceImport: <> */
 
 'use client';
 
@@ -43,7 +47,7 @@ function visibleItems(group: NavGroup, isAuthenticated: boolean): NavItem[] {
     .sort(
       (a, b) =>
         (a.order ?? Number.MAX_SAFE_INTEGER) - (b.order ?? Number.MAX_SAFE_INTEGER) ||
-        a.label.localeCompare(b.label),
+        a.label.localeCompare(b.label)
     );
 }
 
@@ -69,8 +73,11 @@ function buildPrimarySlots(items: readonly NavItem[]): NavSlot[] {
   for (const item of items) {
     if (item.menu) {
       const bucket = menus.get(item.menu);
-      if (bucket) bucket.push(item);
-      else menus.set(item.menu, [item]);
+      if (bucket) {
+        bucket.push(item);
+      } else {
+        menus.set(item.menu, [item]);
+      }
     } else {
       links.push({ type: 'link', item });
     }
@@ -81,13 +88,15 @@ function buildPrimarySlots(items: readonly NavItem[]): NavSlot[] {
     items: [...its].sort((a, b) => itemOrder(a) - itemOrder(b) || a.label.localeCompare(b.label)),
   }));
   return [...links, ...menuSlots].sort(
-    (a, b) => slotOrder(a) - slotOrder(b) || slotLabel(a).localeCompare(slotLabel(b)),
+    (a, b) => slotOrder(a) - slotOrder(b) || slotLabel(a).localeCompare(slotLabel(b))
   );
 }
 
 // At most MAX_PRIMARY_SLOTS triggers render; the rest collapse into "More".
 function splitPrimarySlots(slots: NavSlot[]): { inline: NavSlot[]; overflow: NavSlot[] } {
-  if (slots.length <= MAX_PRIMARY_SLOTS) return { inline: slots, overflow: [] };
+  if (slots.length <= MAX_PRIMARY_SLOTS) {
+    return { inline: slots, overflow: [] };
+  }
   return {
     inline: slots.slice(0, MAX_PRIMARY_SLOTS - 1),
     overflow: slots.slice(MAX_PRIMARY_SLOTS - 1),
@@ -118,12 +127,9 @@ export function SiteNav() {
     slot.type === 'link' ? isActive(slot.item.href) : slot.items.some((i) => isActive(i.href));
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav
-        aria-label="Primary"
-        className="mx-auto flex h-14 max-w-screen-xl items-center gap-2 px-4"
-      >
-        <Link href="/" className="mr-2 shrink-0 truncate text-base font-semibold tracking-tight">
+    <header className="sticky top-0 z-40 w-full border-border border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
+      <nav aria-label="Primary" className="mx-auto flex h-14 max-w-7xl items-center gap-2 px-4">
+        <Link href="/" className="mr-2 shrink-0 truncate font-semibold text-base tracking-tight">
           {siteName}
         </Link>
 
@@ -170,7 +176,7 @@ export function SiteNav() {
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-            ),
+            )
           )}
 
           {/* Overflow: everything past the cap collapses here so the bar can't grow wide */}
@@ -267,7 +273,7 @@ export function SiteNav() {
                         variant="ghost"
                         className={cn(
                           'w-full justify-start',
-                          isActive(slot.item.href) && 'bg-accent text-accent-foreground',
+                          isActive(slot.item.href) && 'bg-accent text-accent-foreground'
                         )}
                       >
                         <Link
@@ -280,7 +286,7 @@ export function SiteNav() {
                       </Button>
                     ) : (
                       <div key={`menu:${slot.label}`} className="flex flex-col gap-1">
-                        <p className="px-3 pt-2 text-xs font-medium text-muted-foreground">
+                        <p className="px-3 pt-2 font-medium text-muted-foreground text-xs">
                           {slot.label}
                         </p>
                         {slot.items.map((item) => (
@@ -290,7 +296,7 @@ export function SiteNav() {
                             variant="ghost"
                             className={cn(
                               'w-full justify-start pl-6',
-                              isActive(item.href) && 'bg-accent text-accent-foreground',
+                              isActive(item.href) && 'bg-accent text-accent-foreground'
                             )}
                           >
                             <Link
@@ -303,10 +309,10 @@ export function SiteNav() {
                           </Button>
                         ))}
                       </div>
-                    ),
+                    )
                   )}
                   {secondary.length > 0 && (
-                    <div className="mt-2 flex flex-col gap-1 border-t border-border pt-4">
+                    <div className="mt-2 flex flex-col gap-1 border-border border-t pt-4">
                       {secondary.map((item) => (
                         <Button
                           key={item.href}
@@ -338,13 +344,15 @@ export function SiteNav() {
 export function SiteFooter() {
   const isAuthenticated = useIsAuthenticated();
   const footer = visibleItems('footer', isAuthenticated);
-  if (footer.length === 0) return null;
+  if (footer.length === 0) {
+    return null;
+  }
 
   return (
-    <footer className="border-t border-border">
+    <footer className="border-border border-t">
       <nav
         aria-label="Footer"
-        className="mx-auto flex max-w-screen-xl flex-wrap items-center gap-1 px-4 py-6 text-sm"
+        className="mx-auto flex max-w-7xl flex-wrap items-center gap-1 px-4 py-6 text-sm"
       >
         {footer.map((item) => (
           <Button key={item.href} asChild variant="link" size="sm">

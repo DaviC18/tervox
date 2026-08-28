@@ -1,4 +1,7 @@
 // @polsia:framework-owned — the framework owns this shell (re-stamped on upgrade; the
+/** biome-ignore-all assist/source/useSortedAttributes: <> */
+/** biome-ignore-all assist/source/useSortedKeys: <> */
+/** biome-ignore-all lint/style/noRestrictedImports: <> */
 // ownership gate rejects edits). Customize via the user-owned seams it imports — see
 // AGENTS.md "Customizing the shell" (lang/head/viewport/providers/nav/brand).
 // Code installed by polsia/template-next@0.3.6.

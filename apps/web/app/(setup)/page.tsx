@@ -1,4 +1,6 @@
 // @polsia:user-owned — landing page served at /. Replace its content in place;
+/** biome-ignore-all assist/source/useSortedAttributes: <> */
+/** biome-ignore-all assist/source/useSortedKeys: <> */
 // keep this a Server Component so it can export metadata.
 
 import {
@@ -94,7 +96,7 @@ const features: ReadonlyArray<{ icon: typeof Sparkles; title: string; body: stri
   },
 ];
 
-const areas: ReadonlyArray<string> = [
+const areas: readonly string[] = [
   'Trabalhista',
   'Cível',
   'Família e sucessões',
@@ -131,7 +133,7 @@ const compliancePoints: ReadonlyArray<{
   },
 ];
 
-const faqItems: ReadonlyArray<FaqEntry> = [
+const faqItems: readonly FaqEntry[] = [
   {
     question: 'O Tervox substitui o advogado?',
     answer:
@@ -185,9 +187,9 @@ export default function Landing() {
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-32 top-40 -z-10 size-[28rem] rounded-full bg-brand-200/50 blur-3xl"
+          className="pointer-events-none absolute top-40 -right-32 -z-10 size-112 rounded-full bg-brand-200/50 blur-3xl"
         />
-        <div className="container-page pb-section pt-section-lg md:pt-section">
+        <div className="container-page pt-section-lg pb-section md:pt-section">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="flex flex-col gap-8 lg:col-span-7">
               <Badge variant="secondary" className="w-fit gap-1.5 px-3 py-1 text-xs">
@@ -219,7 +221,7 @@ export default function Landing() {
                 </Button>
               </div>
 
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-small text-muted-foreground">
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-muted-foreground text-small">
                 <span className="inline-flex items-center gap-1.5">
                   <Check className="size-3.5 text-brand-600 dark:text-brand-300" />
                   Em conformidade com a OAB
@@ -244,11 +246,11 @@ export default function Landing() {
       </section>
 
       {/* === MANIFESTO === Large display quote, asymmetric on purpose. */}
-      <section className="border-y border-border bg-card/40">
+      <section className="border-border border-y bg-card/40">
         <div className="container-page py-section-lg">
           <div className="grid gap-8 lg:grid-cols-12">
             <p className="text-eyebrow lg:col-span-3">Motivação</p>
-            <blockquote className="font-display text-h2 leading-snug text-foreground lg:col-span-9 lg:pl-8">
+            <blockquote className="font-display text-foreground text-h2 leading-snug lg:col-span-9 lg:pl-8">
               Tervox não substitui o advogado — retira dele o trabalho repetitivo de coleta, para
               que ele volte a dedicar tempo ao que exige
               <span className="text-brand-700 dark:text-brand-300"> julgamento humano</span>.
@@ -262,7 +264,7 @@ export default function Landing() {
         <div className="mb-12 grid gap-6 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="text-eyebrow">Como funciona</p>
-            <h2 className="mt-3 font-display text-h2 text-foreground">
+            <h2 className="mt-3 font-display text-foreground text-h2">
               Da primeira mensagem ao prontuário, em cinco passos.
             </h2>
           </div>
@@ -273,17 +275,17 @@ export default function Landing() {
           </p>
         </div>
 
-        <ol className="relative space-y-6 border-l border-border pl-8 lg:pl-12">
+        <ol className="relative space-y-6 border-border border-l pl-8 lg:pl-12">
           {flowSteps.map((step) => (
             <li key={step.n} className="relative">
               <span
                 aria-hidden
-                className="absolute -left-[calc(2rem+1px)] top-1 flex size-8 -translate-x-1/2 items-center justify-center rounded-full border border-brand-300 bg-background font-display text-small font-semibold text-brand-700 dark:border-brand-700 dark:text-brand-300 lg:-left-[calc(3rem+1px)]"
+                className="absolute top-1 -left-8.25 flex size-8 -translate-x-1/2 items-center justify-center rounded-full border border-brand-300 bg-background font-display font-semibold text-brand-700 text-small lg:-left-12.25 dark:border-brand-700 dark:text-brand-300"
               >
                 {step.n}
               </span>
               <div className="grid gap-2 lg:grid-cols-12 lg:gap-8">
-                <h3 className="font-display text-h4 text-foreground lg:col-span-4">{step.title}</h3>
+                <h3 className="font-display text-foreground text-h4 lg:col-span-4">{step.title}</h3>
                 <p className="text-body text-muted-foreground lg:col-span-8">{step.body}</p>
               </div>
             </li>
@@ -297,7 +299,7 @@ export default function Landing() {
           <div className="mb-12 grid gap-6 lg:grid-cols-12">
             <div className="lg:col-span-7">
               <p className="text-eyebrow">O que o escritório recebe</p>
-              <h2 className="mt-3 font-display text-h2 text-foreground">
+              <h2 className="mt-3 font-display text-foreground text-h2">
                 O pronto atendimento. Sem a triagem manual.
               </h2>
             </div>
@@ -335,7 +337,7 @@ export default function Landing() {
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <p className="text-eyebrow">Áreas de atuação</p>
-            <h2 className="mt-3 font-display text-h2 text-foreground">
+            <h2 className="mt-3 font-display text-foreground text-h2">
               Um roteiro para cada área do direito.
             </h2>
             <p className="mt-4 text-body text-muted-foreground">
@@ -360,17 +362,17 @@ export default function Landing() {
       {/* === CONFORMIDADE === Three credential rows, asymmetric layout. */}
       <section
         id="conformidade"
-        className="relative overflow-hidden border-y border-border bg-card/40"
+        className="relative overflow-hidden border-border border-y bg-card/40"
       >
         <div
           aria-hidden
-          className="pointer-events-none absolute -left-32 top-20 -z-0 size-72 rounded-full bg-brand-200/40 blur-3xl"
+          className="pointer-events-none absolute top-20 -left-32 -z-0 size-72 rounded-full bg-brand-200/40 blur-3xl"
         />
         <div className="container-page relative py-section-lg">
           <div className="mb-12 grid gap-6 lg:grid-cols-12">
             <div className="lg:col-span-8">
               <p className="text-eyebrow">Conformidade</p>
-              <h2 className="mt-3 font-display text-h2 text-foreground">
+              <h2 className="mt-3 font-display text-foreground text-h2">
                 Desenhado para a OAB e para a LGPD.
               </h2>
               <p className="mt-4 max-w-2xl text-body-lg text-muted-foreground">
@@ -391,10 +393,10 @@ export default function Landing() {
                     <Icon className="size-6" />
                   </span>
                   <div>
-                    <p className="font-mono text-caption uppercase tracking-[0.12em] text-muted-foreground">
+                    <p className="font-mono text-caption text-muted-foreground uppercase tracking-[0.12em]">
                       {String(i + 1).padStart(2, '0')} · compromisso
                     </p>
-                    <h3 className="mt-1 font-display text-h4 text-foreground">{title}</h3>
+                    <h3 className="mt-1 font-display text-foreground text-h4">{title}</h3>
                   </div>
                 </div>
                 <p className="text-body text-muted-foreground md:col-span-8 md:pt-3">{body}</p>
@@ -409,7 +411,7 @@ export default function Landing() {
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <p className="text-eyebrow">Perguntas frequentes</p>
-            <h2 className="mt-3 font-display text-h2 text-foreground">
+            <h2 className="mt-3 font-display text-foreground text-h2">
               Antes de falar com a gente.
             </h2>
             <p className="mt-4 text-body text-muted-foreground">
@@ -439,15 +441,15 @@ export default function Landing() {
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 opacity-30 [background-image:radial-gradient(ellipse_at_top_right,var(--brand-300),transparent_60%)]"
+          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,var(--brand-300),transparent_60%)] opacity-30"
         />
         <div className="container-page py-section-lg">
           <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-7">
-              <p className="font-mono text-caption uppercase tracking-[0.16em] text-brand-100">
+              <p className="font-mono text-brand-100 text-caption uppercase tracking-[0.16em]">
                 Próximos passos
               </p>
-              <h2 className="mt-4 font-display text-h1 leading-tight text-brand-50">
+              <h2 className="mt-4 font-display text-brand-50 text-h1 leading-tight">
                 Pronto para começar a triagem antes que o lead&nbsp;desista?
               </h2>
               <p className="mt-4 max-w-2xl text-body-lg text-brand-100">
@@ -467,7 +469,7 @@ export default function Landing() {
                   <ArrowRight className="size-4" />
                 </a>
               </Button>
-              <p className="font-mono text-caption text-brand-100 lg:text-right">
+              <p className="font-mono text-brand-100 text-caption lg:text-right">
                 {CONTACT_EMAIL} · resposta em até um dia útil
               </p>
             </div>
@@ -487,13 +489,13 @@ function ChatPreview() {
         className="absolute -inset-6 -z-10 rounded-3xl bg-brand-100/60 blur-2xl dark:bg-brand-900/40"
       />
       <Card className="overflow-hidden border-border/80 shadow-brand">
-        <div className="flex items-center justify-between border-b border-border bg-brand-50 px-4 py-3 dark:bg-brand-900/40">
+        <div className="flex items-center justify-between border-border border-b bg-brand-50 px-4 py-3 dark:bg-brand-900/40">
           <div className="flex items-center gap-2">
             <span
               aria-hidden
               className="size-2.5 rounded-full bg-brand-500 shadow-[0_0_8px_var(--brand-500)]"
             />
-            <p className="font-mono text-caption font-semibold uppercase tracking-[0.14em] text-brand-700 dark:text-brand-200">
+            <p className="font-mono font-semibold text-brand-700 text-caption uppercase tracking-[0.14em] dark:text-brand-200">
               Tervox · Triagem
             </p>
           </div>
@@ -520,9 +522,9 @@ function ChatPreview() {
             Fui demitida há uma semana e não recebi as verbas rescisórias.
           </HumanMessage>
         </CardContent>
-        <div className="border-t border-border bg-muted/40 px-4 py-3">
+        <div className="border-border border-t bg-muted/40 px-4 py-3">
           <div className="flex items-center gap-2 rounded-full border border-input bg-background px-3 py-2">
-            <span className="grow text-small text-muted-foreground">Digite sua resposta…</span>
+            <span className="grow text-muted-foreground text-small">Digite sua resposta…</span>
             <span
               aria-hidden
               className="inline-flex size-6 items-center justify-center rounded-full bg-brand-500 text-brand-50"
@@ -537,7 +539,7 @@ function ChatPreview() {
       </Card>
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-6 -top-6 hidden size-24 rotate-12 rounded-2xl border-2 border-dashed border-brand-400/40 lg:block"
+        className="pointer-events-none absolute -top-6 -right-6 hidden size-24 rotate-12 rounded-2xl border-2 border-brand-400/40 border-dashed lg:block"
       />
     </div>
   );
@@ -546,7 +548,7 @@ function ChatPreview() {
 function BotMessage({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex">
-      <p className="max-w-[85%] rounded-2xl rounded-tl-sm border border-border bg-card px-3.5 py-2 text-small text-foreground shadow-xs">
+      <p className="max-w-[85%] rounded-2xl rounded-tl-sm border border-border bg-card px-3.5 py-2 text-foreground text-small shadow-xs">
         {children}
       </p>
     </div>
@@ -556,7 +558,7 @@ function BotMessage({ children }: { children: React.ReactNode }) {
 function HumanMessage({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex justify-end">
-      <p className="max-w-[85%] rounded-2xl rounded-tr-sm bg-brand-600 px-3.5 py-2 text-small text-primary-foreground shadow-sm">
+      <p className="max-w-[85%] rounded-2xl rounded-tr-sm bg-brand-600 px-3.5 py-2 text-primary-foreground text-small shadow-sm">
         {children}
       </p>
     </div>
